@@ -1,0 +1,45 @@
+{
+  "presets": [
+    "next/babel"
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./"
+        ],
+        "alias": {
+          "utils": "./app/utils",
+          "helpers": "./app/helpers",
+          "containers": "./app/containers",
+          "components": "./app/components",
+          "static": "./static"
+        }
+      }
+    ],
+    [
+      "styled-components",
+      {
+        "ssr": true,
+        "displayName": true,
+        "preprocess": false
+      }
+    ],
+    [
+      "transform-assets",
+      {
+        "extensions": ["txt", "svg", "png"],
+        "regExp": ".*/static/(.+)",
+        "name": "/static/[1]?[sha512:hash:base64:7]"
+      }
+    ],
+    [
+      "transform-assets-import-to-string",
+      {
+        "baseDir": "static",
+        "baseUri": "/"
+      }
+    ]
+  ]
+}

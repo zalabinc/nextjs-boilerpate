@@ -1,0 +1,90 @@
+/**
+ *
+ * {{properCase name }}
+ *
+ */
+
+import React from 'react';
+{{#if wantHeaders}}
+import Head from 'next/head';
+{{/if}}
+// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+{{#if wantMessages}}
+import { FormattedMessage } from 'react-intl';
+{{/if}}
+{{#if wantActionsAndReducer}}
+import { createStructuredSelector } from 'reselect';
+{{/if}}
+import { compose } from 'redux';
+import { initRedux } from 'utils/configureStore';
+
+// import isTruthy from 'helpers/isTruthy';
+// import isFalsy from 'helpers/isFalsy';
+// import isImmutable from 'helpers/isImmutable';
+
+{{#if wantActionsAndReducer}}
+// import { selectLoading, selectInfo, selectError } from 'containers/App/selectors';
+import makeSelect{{properCase name}} from './selectors';
+import { } from './constants';
+import { } from './actions';
+import reducer from './reducer';
+{{/if}}
+{{#if wantSaga}}
+import saga from './saga';
+{{/if}}
+{{#if wantMessages}}
+import messages from './messages';
+{{/if}}
+
+export class {{ properCase name }} extends {{{ type }}} { // eslint-disable-line react/prefer-stateless-function
+  // static async getInitialProps({ store, isServer }) {
+  //   if (isServer) {
+  //   }
+  // }
+  render() {
+    return (
+      <div>
+      {{#if wantHeaders}}
+        <Head>
+          <title>{{properCase name }}</title>
+        </Head>
+      {{/if}}
+      {{#if wantMessages}}
+        <FormattedMessage {...messages.header} />
+      {{/if}}
+      </div>
+    );
+  }
+}
+
+{{ properCase name }}.propTypes = {
+  // loading: PropTypes.object.isRequired,
+  // info: PropTypes.object.isRequired,
+  // error: PropTypes.object.isRequired,
+  // dispatch: PropTypes.func.isRequired,
+};
+
+{{#if wantActionsAndReducer}}
+const mapStateToProps = createStructuredSelector({
+  // loading: selectLoading(),
+  // info: selectInfo(),
+  // error: selectError(),
+  {{ lowerCase name }}: makeSelect{{properCase name}}(),
+});
+{{/if}}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+{{#if wantActionsAndReducer}}
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withRedux = initRedux({ key: '{{ camelCase name }}', reducer{{#if wantSaga}}, saga{{/if}} });
+export default compose(
+  withRedux,
+  withConnect,
+)({{ properCase name }});
+{{/if}}

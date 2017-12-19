@@ -1,0 +1,33 @@
+/**
+*
+* {{ properCase name }}
+*
+*/
+
+import React from 'react';
+// import PropTypes from 'prop-types';
+
+// import isTruthy from 'helpers/isTruthy';
+// import isFalsy from 'helpers/isFalsy';
+// import isImmutable from 'helpers/isImmutable';
+
+{{#if wantMessages}}
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
+{{/if}}
+
+function {{ properCase name }}() {
+  return (
+    <div>
+    {{#if wantMessages}}
+      <FormattedMessage {...messages.header} />
+    {{/if}}
+    </div>
+  );
+}
+
+{{ properCase name }}.propTypes = {
+
+};
+
+export default {{ properCase name }};
